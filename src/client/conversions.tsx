@@ -1,4 +1,6 @@
-export const letterGrades = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
+export const letterGrades = {
+  'A+ (12)': 12, 'A (11)': 11, 'A- (10)': 10, 'B+ (9)': 9, 'B (8)': 8, 'B- (7)': 7, 'C+ (6)': 6, 'C (5)': 5, 'C- (4)': 4, 'D+ (3)': 3, 'D (2)': 2, 'D- (1)': 1, 'F (0)': 0
+};
 
 export function numberToPercent(grade: number): number {
   switch (grade) {

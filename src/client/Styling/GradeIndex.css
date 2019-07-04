@@ -1,6 +1,6 @@
 
 body {
-    background-color: #f7f7f7 !important;
+    background-color: #fafafa !important;
 }
 .gradeIndexWrapper {
     height: 100%;
@@ -19,7 +19,7 @@ body {
 .gradeIndexContainer {
     width: 35%;
     min-width: 400px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     display: flex;
     flex-direction: column;
@@ -27,6 +27,7 @@ body {
     margin-top: 2%;
     padding: 1.5%;
     background-color: white;
+    border-radius: .5rem!important;
 }
 
 .gradeIndexHeader {
@@ -41,11 +42,15 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     margin-top: 1%;
-    flex: 1;
 }
-.gradeIndexRow input{
-    width: 90%;
-    margin: 0 10px;
+
+.gradeIndexRow .input-group, .gradeIndexRow .form-group {
+    flex: 1;
+    margin: 10px;
+}
+
+.gradeIndexRow input::placeholder {
+    font-weight: 100;
 }
 
 .actionButtons {
@@ -80,4 +85,20 @@ hr {
 .conversionFieldForm .input-group, .conversionFieldForm .form-group {
     flex: 1;
     margin: 10px;
+}
+
+.conversionFieldForm input::placeholder {
+    font-weight: 100;
+}
+
+@media screen and (max-width: 500px) {
+    .gradeIndexContainer {
+        width: 100%;
+        min-width: 50px;
+        background-color: white;
+    }
+
+    .conversionFieldHeader h3 {
+        font-size: 22px;
+    }
 }

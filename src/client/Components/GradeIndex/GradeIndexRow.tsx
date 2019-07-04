@@ -1,5 +1,6 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import { InputGroup } from "react-bootstrap";
 
 interface Props {
     id: number,
@@ -27,22 +28,30 @@ export default class GradeIndexElement extends React.Component<Props, {}> {
             onChange={(e:any) => this.props.handleChange(e, id)}
           />
         </Form.Group>
-        <Form.Group controlId="mark">
+        <InputGroup>
           <Form.Control
             required
             type="number"
             placeholder="85"
-            step=".01"
             value={mark}
             onChange={(e:any) => this.props.handleChange(e, id)}
+            min="0"
+            max="100"
+            step="0.01"
+            id="mark"
           />
-        </Form.Group>
+          <InputGroup.Append>
+            <InputGroup.Text id="basic-addon2">%</InputGroup.Text>
+          </InputGroup.Append>
+        </InputGroup>
         <Form.Group controlId="weight">
           <Form.Control
             required
             type="number"
             placeholder="40"
-            step="1"
+            min="0"
+            max="100"
+            step="0.5"
             value={weight}
             onChange={(e:any) => this.props.handleChange(e, id)}
           />

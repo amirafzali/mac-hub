@@ -6,7 +6,7 @@ import { letterGrades } from '../../conversions';
 
 interface Props {
     examPercent: string,
-    examLetter: string,
+    examGrade: string,
     examWeight: string,
     handleChange: Function
 }
@@ -14,7 +14,7 @@ interface Props {
 export default class GradeIndexConversion extends React.Component<Props, {}> {
   render() {
     const {
-      examPercent: percentage, examLetter: letter, examWeight: weight, handleChange
+      examPercent: percentage, examGrade: grade, examWeight: weight, handleChange
     } = this.props;
     console.log(percentage);
     return (
@@ -32,16 +32,16 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
               onChange={(e: any) => handleChange(e)}
               min={0}
               max={100}
-              step={0.05}
+              step={0.01}
               id="examPercent"
             />
             <InputGroup.Append>
               <InputGroup.Text id="basic-addon2">%</InputGroup.Text>
             </InputGroup.Append>
           </InputGroup>
-          <Form.Group controlId="examLetter">
-            <Form.Control as="select" onChange={e => handleChange(e)}>
-              {letterGrades.map(letterGrade => (<option key={letterGrade} value={letterGrade}>{letterGrade}</option>))}
+          <Form.Group controlId="examGrade">
+            <Form.Control as="select" value={grade} onChange={e => handleChange(e)}>
+              {Object.keys(letterGrades).map(letterGrade => (<option key={letterGrades[letterGrade]} value={letterGrades[letterGrade]}>{letterGrade}</option>))}
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="examWeight">

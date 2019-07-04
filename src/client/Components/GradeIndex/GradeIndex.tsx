@@ -4,6 +4,8 @@ import '../../Styling/GradeIndex.css';
 import GradeIndexElement from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
+import { numberToPercent, percentToNumber } from '../../conversions';
+
 
 interface rowState {
     id: number,
@@ -16,7 +18,7 @@ interface rowState {
 interface State {
     inputs: rowState[],
     examPercent: string,
-    examLetter: string,
+    examGrade: string,
     examWeight: string
 }
 
@@ -29,7 +31,7 @@ export default class GradeIndex extends React.Component<{}, State> {
         inputs: [{
           id: this.getId(), name: 'Quiz 1', mark: '85', weight: '40', default: true
         }],
-        examLetter: 'A+',
+        examGrade: '12',
         examPercent: '90',
         examWeight: '60'
       };
@@ -46,15 +48,32 @@ export default class GradeIndex extends React.Component<{}, State> {
           return elm;
         })
       });
+      setImmediate(() => this.recalculateWeight());
     }
 
     handleConversionChange(e: React.ChangeEvent<HTMLInputElement>) {
       switch (e.target.id) {
-        case ("examLetter"): this.setState({ examLetter: e.target.value }); break;
-        case ("examPercent"): this.setState({ examPercent: e.target.value }); break;
+        case ("examGrade"): this.gradeConversion(e.target.value); break;
+        case ("examPercent"): this.percentConversion(e.target.value); break;
         case ("examWeight"): this.setState({ examWeight: e.target.value }); break;
         default: break;
       }
+    }
+
+    gradeConversion(grade: string) {
+      this.setState({ examGrade: grade, examPercent: String(numberToPercent(Number(grade))) });
+    }
+
+    percentConversion(percent: string) {
+      this.setState({ examPercent: percent, examGrade: String(percentToNumber(Number(percent))) });
+    }
+
+    recalculateWeight() {
+      let totalWeight: number = 0;
+      this.state.inputs.forEach((row) => {
+        totalWeight += Number(row.weight);
+      });
+      this.setState({ examWeight: String(100 - totalWeight) });
     }
 
     getId() {
@@ -78,7 +97,7 @@ export default class GradeIndex extends React.Component<{}, State> {
     }
 
     render() {
-      const { examLetter, examPercent, examWeight } = this.state;
+      const { examGrade, examPercent, examWeight } = this.state;
       console.log(this.state);
       return (
         <div className="gradeIndexWrapper">
@@ -99,7 +118,7 @@ export default class GradeIndex extends React.Component<{}, State> {
             </div>
             <hr />
             <div>
-              <GradeIndexConversion examLetter={examLetter} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
+              <GradeIndexConversion examGrade={examGrade} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
             </div>
           </div>
         </div>
