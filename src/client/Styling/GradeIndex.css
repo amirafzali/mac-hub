@@ -1,0 +1,83 @@
+
+body {
+    background-color: #f7f7f7 !important;
+}
+.gradeIndexWrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.gradeIndexWrapper h1 {
+    margin-top: 3%;
+    align-self: center;
+    flex: 1;
+    font-family: "Georgia", serif
+}
+
+.gradeIndexContainer {
+    width: 35%;
+    min-width: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-top: 2%;
+    padding: 1.5%;
+    background-color: white;
+}
+
+.gradeIndexHeader {
+    display: flex;
+    flex-direction: Row;
+    justify-content: space-around;
+    margin-top: 1%;
+}
+
+.gradeIndexRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 1%;
+    flex: 1;
+}
+.gradeIndexRow input{
+    width: 90%;
+    margin: 0 10px;
+}
+
+.actionButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1%;
+    color: #0000EE;
+}
+
+.actionClick:hover {
+    cursor: pointer;
+}
+
+hr {
+    width: 96%;
+    height: 1px;
+  }
+
+.conversionFieldHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 3%;
+}
+
+.conversionFieldForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.conversionFieldForm .input-group, .conversionFieldForm .form-group {
+    flex: 1;
+    margin: 10px;
+}
