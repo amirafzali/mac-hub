@@ -24,6 +24,7 @@ interface State {
     examGrade: string,
     examWeight: string,
     showResults: boolean,
+    showWarning: boolean,
     requiredAverage: string,
     currentAverage: string
 }
@@ -32,7 +33,13 @@ interface OutputProps {
   currentAverage: string,
   courseMark: string
 }
-const OutputBox = (props:OutputProps) => {
+
+
+function formatGrade(grade: string) {
+  return `${percentToNumber(Number(grade))}, ${percentToLetter(Number(grade))}`;
+}
+
+const ResultsBox = (props:OutputProps) => {
   const { currentAverage, requiredAverage, courseMark } = props;
   return (
     <div className="gradeIndexResults">
@@ -45,12 +52,18 @@ const OutputBox = (props:OutputProps) => {
   );
 };
 
-function formatGrade(grade: string) {
-  return `${percentToNumber(Number(grade))}, ${percentToLetter(Number(grade))}`;
-}
+const WarningBox = () => (
+  <div className="gradeIndexWarning">
+    <div>
+      <h3>Course weights exceed 100, please verify.</h3>
+    </div>
+  </div>
+);
 
 export default class GradeIndex extends React.Component<{}, State> {
     private id = 0;
+
+    private formRef = React.createRef<HTMLFormElement>()
 
     constructor(props: {}) {
       super(props);
@@ -62,6 +75,7 @@ export default class GradeIndex extends React.Component<{}, State> {
         examPercent: '90',
         examWeight: '60',
         showResults: false,
+        showWarning: false,
         requiredAverage: '',
         currentAverage: ''
       };
@@ -79,6 +93,14 @@ export default class GradeIndex extends React.Component<{}, State> {
         })
       });
       setImmediate(() => this.recalculateWeight());
+      setImmediate(() => {
+        if (this.formRef.current!.checkValidity()) {
+          console.log('x');
+          this.displayResults();
+        } else {
+          this.setState({ showResults: false });
+        }
+      });
     }
 
     handleConversionChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -103,7 +125,11 @@ export default class GradeIndex extends React.Component<{}, State> {
       this.state.inputs.forEach((row) => {
         totalWeight += Number(row.weight);
       });
-      this.setState({ examWeight: String(100 - totalWeight) });
+      if (100 - totalWeight >= 0) {
+        this.setState({ examWeight: String(100 - totalWeight), showWarning: false });
+      } else {
+        this.setState({ examWeight: String(100 - totalWeight), showWarning: true, showResults: false });
+      }
     }
 
     getId() {
@@ -126,8 +152,8 @@ export default class GradeIndex extends React.Component<{}, State> {
       });
     }
 
-    handleSubmit(e: React.FormEvent<Element>) {
-      e.preventDefault();
+
+    displayResults() {
       const grades: number[] = [];
       const weights: number[] = [];
       this.state.inputs.forEach((row) => {
@@ -136,9 +162,15 @@ export default class GradeIndex extends React.Component<{}, State> {
       });
       const { examWeight, examPercent } = this.state;
 
-
       const results = getResults(grades, weights, Number(examPercent), Number(examWeight));
-      this.setState({ showResults: true, requiredAverage: String(results.required), currentAverage: String(results.average) });
+      this.setState({
+        showResults: true, showWarning: false, requiredAverage: String(results.required), currentAverage: String(results.average)
+      });
+    }
+
+    handleSubmit(e: React.FormEvent<Element>) {
+      e.preventDefault();
+      this.displayResults();
     }
 
     render() {
@@ -155,7 +187,7 @@ export default class GradeIndex extends React.Component<{}, State> {
               <h3>Mark</h3>
               <h3>Weight</h3>
             </div>
-            <Form onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
+            <Form ref={this.formRef as React.RefObject<any>} onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
               <div className="gradeIndexFormRows">
                 {this.state.inputs.map((elm:rowState) => (<GradeIndexElement default={elm.default} key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} />))}
               </div>
@@ -172,7 +204,8 @@ export default class GradeIndex extends React.Component<{}, State> {
               </div>
             </Form>
           </div>
-          {showResults && <OutputBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
+          {showResults && <ResultsBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
+          {this.state.showWarning && <WarningBox />}
         </div>
       );
     }

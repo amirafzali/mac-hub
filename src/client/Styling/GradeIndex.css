@@ -10,7 +10,7 @@ body {
 }
 
 .gradeIndexWrapper h1 {
-    margin-top: 3%;
+    margin-top: 2%;
     align-self: center;
     flex: 1;
     font-family: "Georgia", serif
@@ -98,12 +98,11 @@ hr {
     margin-top: 2%;
 }
 
-.gradeIndexResults {
+.gradeIndexResults, .gradeIndexWarning {
     display: flex;
     flex-direction: column;
-    border: 2px solid #1f979d;
     margin: 3% 1%;
-    margin-bottom: 2%;
+    margin-bottom: 3%;
     padding: 2%;
     width: 35%;
     min-width: 500px;
@@ -111,6 +110,16 @@ hr {
     transition: 0.3s;
     align-self: center;
     border-radius: .5rem!important;
+}
+
+.gradeIndexResults {
+    background-color: #f0f5f4;
+    border: 2px solid #1f979d;
+}
+
+.gradeIndexWarning {
+    background-color: #f8f7ed;
+    border: 2px solid #ffc107;
 }
 
 @media screen and (max-width: 600px) {
@@ -125,7 +134,14 @@ hr {
         min-width: 50px;
     }
 
-    .conversionFieldHeader h3 {
+    .gradeIndexHeader h3, .conversionFieldHeader h3 {
         font-size: 22px;
+    }
+
+    .gradeIndexResults h3, .gradeIndexWarning h3 {
+        font-size: 22px;
+    }
+    .submitRow {
+        margin-bottom: 2%
     }
 }
