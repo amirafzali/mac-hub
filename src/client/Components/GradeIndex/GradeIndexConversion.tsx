@@ -16,7 +16,6 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
     const {
       examPercent: percentage, examGrade: grade, examWeight: weight, handleChange
     } = this.props;
-    console.log(percentage);
     return (
       <div className="conversionField">
         <div className="conversionFieldHeader">
@@ -34,6 +33,7 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
               max={100}
               step={0.01}
               id="examPercent"
+              required
             />
             <InputGroup.Append>
               <InputGroup.Text id="basic-addon2">%</InputGroup.Text>
@@ -45,7 +45,7 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="examWeight">
-            <Form.Control type="number" onChange={(e: any) => handleChange(e)} placeholder="40" value={String(weight)} min={0} max={100} step={0.5} />
+            <Form.Control type="number" onChange={(e: any) => handleChange(e)} placeholder="40" value={String(weight)} min={0} max={100} step={0.5} required />
           </Form.Group>
         </div>
       </div>

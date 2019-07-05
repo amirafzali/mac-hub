@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import '../../Styling/GradeIndex.css';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import GradeIndexElement from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
@@ -21,6 +23,16 @@ interface State {
     examGrade: string,
     examWeight: string
 }
+
+const outputBox = (props: Object) => (
+  <div className="resultContainer">
+    <div>
+      <p>x</p>
+      <p>x</p>
+      <p>x</p>
+    </div>
+  </div>
+);
 
 export default class GradeIndex extends React.Component<{}, State> {
     private id = 0;
@@ -96,9 +108,12 @@ export default class GradeIndex extends React.Component<{}, State> {
       });
     }
 
+    handleSubmit(e: React.FormEvent<Element>) {
+      e.preventDefault();
+    }
+
     render() {
       const { examGrade, examPercent, examWeight } = this.state;
-      console.log(this.state);
       return (
         <div className="gradeIndexWrapper">
           <Navigation />
@@ -109,17 +124,22 @@ export default class GradeIndex extends React.Component<{}, State> {
               <h3>Mark</h3>
               <h3>Weight</h3>
             </div>
-            <div className="gradeIndexForm">
-              {this.state.inputs.map((elm:rowState) => (<GradeIndexElement default={elm.default} key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} />))}
-            </div>
-            <div className="actionButtons">
-              <p className="actionClick" onClick={() => this.newRow()}>Add Another Grade</p>
-              <p className="actionClick" onClick={() => this.resetForm()}>Reset Form</p>
-            </div>
-            <hr />
-            <div>
-              <GradeIndexConversion examGrade={examGrade} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
-            </div>
+            <Form onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
+              <div className="gradeIndexFormRows">
+                {this.state.inputs.map((elm:rowState) => (<GradeIndexElement default={elm.default} key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} />))}
+              </div>
+              <div className="actionButtons">
+                <p className="actionClick" onClick={() => this.newRow()}>Add Another Grade</p>
+                <p className="actionClick" onClick={() => this.resetForm()}>Reset Form</p>
+              </div>
+              <hr />
+              <div>
+                <GradeIndexConversion examGrade={examGrade} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
+              </div>
+              <div className="submitRow">
+                <Button type="submit" variant="outline-success">Calculate</Button>
+              </div>
+            </Form>
           </div>
         </div>
       );
