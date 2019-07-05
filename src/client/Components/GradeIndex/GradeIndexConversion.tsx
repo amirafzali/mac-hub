@@ -2,7 +2,7 @@ import React from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
-import { letterGrades } from '../../conversions';
+import { letterGrades } from '../../../lib/conversions';
 
 interface Props {
     examPercent: string,

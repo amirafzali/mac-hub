@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button';
 import GradeIndexElement from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
-import { numberToPercent, percentToNumber } from '../../conversions';
+import { numberToPercent, percentToNumber } from '../../../lib/conversions';
+import { getResults } from '../../../lib/calculations';
 
 
 interface rowState {
@@ -37,11 +38,11 @@ const outputBox = (props: Object) => (
 export default class GradeIndex extends React.Component<{}, State> {
     private id = 0;
 
-    constructor() {
-      super({});
+    constructor(props: {}) {
+      super(props);
       this.state = {
         inputs: [{
-          id: this.getId(), name: 'Quiz 1', mark: '85', weight: '40', default: true
+          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40', default: true
         }],
         examGrade: '12',
         examPercent: '90',
@@ -103,13 +104,28 @@ export default class GradeIndex extends React.Component<{}, State> {
     resetForm() {
       this.setState({
         inputs: [{
-          id: this.getId(), name: 'Quiz 1', mark: '85', weight: '40', default: true
+          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40', default: true
         }]
       });
     }
 
     handleSubmit(e: React.FormEvent<Element>) {
       e.preventDefault();
+      const grades: number[] = [];
+      const weights: number[] = [];
+      this.state.inputs.forEach((row) => {
+        grades.push(Number(row.mark));
+        weights.push(Number(row.weight));
+      });
+      const { examWeight, examPercent } = this.state;
+
+
+      const results = getResults(grades, weights, Number(examPercent), Number(examWeight));
+      this.displayResults(results);
+    }
+
+    displayResults(results: object) {
+      console.log(results);
     }
 
     render() {
