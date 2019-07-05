@@ -35,7 +35,6 @@ export default class GradeIndexElement extends React.Component<Props, {}> {
             value={mark}
             onChange={(e:any) => this.props.handleChange(e, id)}
             min="0"
-            max="100"
             step="0.01"
             id="mark"
           />

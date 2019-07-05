@@ -61,7 +61,9 @@ const WarningBox = () => (
 );
 
 export default class GradeIndex extends React.Component<{}, State> {
-    private id = 0;
+    private id:number = 0;
+
+    private first:boolean = true;
 
     private formRef = React.createRef<HTMLFormElement>()
 
@@ -92,8 +94,8 @@ export default class GradeIndex extends React.Component<{}, State> {
           return elm;
         })
       });
-      setImmediate(() => this.recalculateWeight());
       setImmediate(() => {
+        this.recalculateWeight();
         if (this.formRef.current!.checkValidity()) {
           console.log('x');
           this.displayResults();
@@ -110,6 +112,13 @@ export default class GradeIndex extends React.Component<{}, State> {
         case ("examWeight"): this.setState({ examWeight: e.target.value }); break;
         default: break;
       }
+      setImmediate(() => {
+        if (this.formRef.current!.checkValidity()) {
+          this.displayResults();
+        } else {
+          this.setState({ showResults: false });
+        }
+      });
     }
 
     gradeConversion(grade: string) {
@@ -166,6 +175,16 @@ export default class GradeIndex extends React.Component<{}, State> {
       this.setState({
         showResults: true, showWarning: false, requiredAverage: String(results.required), currentAverage: String(results.average)
       });
+
+      this.attemptLog();
+    }
+
+    attemptLog() {
+      if (this.first) {
+        fetch('/api/log', { method: 'get' })
+          .then(() => { this.first = false; return true; })
+          .catch(() => { this.first = false; });
+      }
     }
 
     handleSubmit(e: React.FormEvent<Element>) {

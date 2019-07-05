@@ -26,12 +26,12 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
           <InputGroup className="mb-3">
             <FormControl
               placeholder="90"
-              aria-label="Exam weight"
+              aria-label="Desired Mark"
               value={String(percentage)}
               onChange={(e: any) => handleChange(e)}
-              min={0}
-              max={100}
-              step={0.01}
+              type="number"
+              min="0"
+              step="0.01"
               id="examPercent"
               required
             />
