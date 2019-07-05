@@ -22,7 +22,7 @@
     "quotes": "off",
     "no-plusplus": "off",
     "no-use-before-define": "warn",
-    "react/jsx-one-expression-per-line": "warn",
+    "react/jsx-one-expression-per-line": "off",
     "react/destructuring-assignment": "off",
     "react/no-unused-state": "warn",
     "react/sort-comp": "off",

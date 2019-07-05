@@ -21,7 +21,6 @@ export default class GradeIndexElement extends React.Component<Props, {}> {
       <div className="gradeIndexRow">
         <Form.Group controlId="name">
           <Form.Control
-            required
             type="text"
             placeholder="Quiz 1"
             value={name}

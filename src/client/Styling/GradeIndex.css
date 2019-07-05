@@ -18,7 +18,7 @@ body {
 
 .gradeIndexContainer {
     width: 35%;
-    min-width: 400px;
+    min-width: 500px;
     box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     display: flex;
@@ -98,16 +98,31 @@ hr {
     margin-top: 2%;
 }
 
-.resultContainer {
+.gradeIndexResults {
     display: flex;
     flex-direction: column;
+    border: 2px solid #1f979d;
+    margin: 3% 1%;
+    margin-bottom: 2%;
+    padding: 2%;
+    width: 35%;
+    min-width: 500px;
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    align-self: center;
+    border-radius: .5rem!important;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .gradeIndexContainer {
         width: 100%;
         min-width: 50px;
         background-color: white;
+    }
+
+    .gradeIndexResults {
+        width: 100%;
+        min-width: 50px;
     }
 
     .conversionFieldHeader h3 {

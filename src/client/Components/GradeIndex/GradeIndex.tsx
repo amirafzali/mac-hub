@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import GradeIndexElement from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
-import { numberToPercent, percentToNumber } from '../../../lib/conversions';
+import { numberToPercent, percentToNumber, percentToLetter } from '../../../lib/conversions';
 import { getResults } from '../../../lib/calculations';
 
 
@@ -22,18 +22,32 @@ interface State {
     inputs: rowState[],
     examPercent: string,
     examGrade: string,
-    examWeight: string
+    examWeight: string,
+    showResults: boolean,
+    requiredAverage: string,
+    currentAverage: string
 }
-
-const outputBox = (props: Object) => (
-  <div className="resultContainer">
-    <div>
-      <p>x</p>
-      <p>x</p>
-      <p>x</p>
+interface OutputProps {
+  requiredAverage: string,
+  currentAverage: string,
+  courseMark: string
+}
+const OutputBox = (props:OutputProps) => {
+  const { currentAverage, requiredAverage, courseMark } = props;
+  return (
+    <div className="gradeIndexResults">
+      <div>
+        <h3>Current Average: <h3 style={{ float: 'right' }}>{currentAverage}% ({formatGrade(currentAverage)})</h3></h3>
+        <h3>Required Exam: <h3 style={{ float: 'right' }}>{requiredAverage}% ({formatGrade(requiredAverage)})</h3></h3>
+        <h3>Final course mark: <h3 style={{ float: 'right' }}>{courseMark}% ({formatGrade(courseMark)})</h3></h3>
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+function formatGrade(grade: string) {
+  return `${percentToNumber(Number(grade))}, ${percentToLetter(Number(grade))}`;
+}
 
 export default class GradeIndex extends React.Component<{}, State> {
     private id = 0;
@@ -42,11 +56,14 @@ export default class GradeIndex extends React.Component<{}, State> {
       super(props);
       this.state = {
         inputs: [{
-          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40', default: true
+          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40', default: true,
         }],
         examGrade: '12',
         examPercent: '90',
-        examWeight: '60'
+        examWeight: '60',
+        showResults: false,
+        requiredAverage: '',
+        currentAverage: ''
       };
       this.handleGradeChange = this.handleGradeChange.bind(this);
       this.handleConversionChange = this.handleConversionChange.bind(this);
@@ -121,15 +138,13 @@ export default class GradeIndex extends React.Component<{}, State> {
 
 
       const results = getResults(grades, weights, Number(examPercent), Number(examWeight));
-      this.displayResults(results);
-    }
-
-    displayResults(results: object) {
-      console.log(results);
+      this.setState({ showResults: true, requiredAverage: String(results.required), currentAverage: String(results.average) });
     }
 
     render() {
-      const { examGrade, examPercent, examWeight } = this.state;
+      const {
+        examGrade, examPercent, examWeight, showResults, requiredAverage, currentAverage
+      } = this.state;
       return (
         <div className="gradeIndexWrapper">
           <Navigation />
@@ -157,6 +172,7 @@ export default class GradeIndex extends React.Component<{}, State> {
               </div>
             </Form>
           </div>
+          {showResults && <OutputBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
         </div>
       );
     }

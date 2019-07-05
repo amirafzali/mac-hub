@@ -16,5 +16,5 @@ export const getResults = (
 
   const currentWeight = weights.reduce((num1, num2) => num1 + num2);
   const totalWeight = currentWeight + desiredWeight;
-  return { required: requiredAverage(desiredGrade, desiredWeight, totalWeight, totalMarks), average: getAverage(totalMarks, currentWeight) };
+  return { required: Math.round(requiredAverage(desiredGrade, desiredWeight, totalWeight, totalMarks) * 100) / 100, average: Math.round(getAverage(totalMarks, currentWeight) * 100) / 100 };
 };
