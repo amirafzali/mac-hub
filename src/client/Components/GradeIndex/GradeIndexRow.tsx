@@ -5,13 +5,12 @@ import { InputGroup } from "react-bootstrap";
 interface Props {
     id: number,
     handleChange: Function,
-    default: Boolean,
     name: string,
     mark: string,
     weight: string
 }
 
-export default class GradeIndexElement extends React.Component<Props, {}> {
+export default class GradeIndexRow extends React.Component<Props, {}> {
   render() {
     const {
       id, name, mark, weight

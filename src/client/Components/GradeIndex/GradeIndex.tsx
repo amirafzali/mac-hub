@@ -3,7 +3,7 @@ import React from 'react';
 import '../../Styling/GradeIndex.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import GradeIndexElement from './GradeIndexRow';
+import GradeIndexRow from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
 import { numberToPercent, percentToNumber, percentToLetter } from '../../../lib/conversions';
@@ -14,8 +14,7 @@ interface rowState {
     id: number,
     name: string,
     mark: string,
-    weight: string,
-    default: boolean
+    weight: string
 }
 
 interface State {
@@ -71,7 +70,7 @@ export default class GradeIndex extends React.Component<{}, State> {
       super(props);
       this.state = {
         inputs: [{
-          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40', default: true,
+          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40'
         }],
         examGrade: '12',
         examPercent: '90',
@@ -148,7 +147,7 @@ export default class GradeIndex extends React.Component<{}, State> {
     newRow() {
       this.setState({
         inputs: [...this.state.inputs, {
-          id: this.getId(), name: '', mark: '', weight: '', default: false
+          id: this.getId(), name: '', mark: '', weight: ''
         }]
       });
     }
@@ -156,7 +155,7 @@ export default class GradeIndex extends React.Component<{}, State> {
     resetForm() {
       this.setState({
         inputs: [{
-          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40', default: true
+          id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40'
         }]
       });
     }
@@ -208,7 +207,7 @@ export default class GradeIndex extends React.Component<{}, State> {
             </div>
             <Form ref={this.formRef as React.RefObject<any>} onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
               <div className="gradeIndexFormRows">
-                {this.state.inputs.map((elm:rowState) => (<GradeIndexElement default={elm.default} key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} />))}
+                {this.state.inputs.map((elm:rowState) => (<GradeIndexRow key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} />))}
               </div>
               <div className="actionButtons">
                 <p className="actionClick" onClick={() => this.newRow()}>Add Another Grade</p>
