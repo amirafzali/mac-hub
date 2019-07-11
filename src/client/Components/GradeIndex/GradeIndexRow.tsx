@@ -5,6 +5,7 @@ import { InputGroup } from "react-bootstrap";
 interface Props {
     id: number,
     handleChange: Function,
+    handleRemove: Function,
     name: string,
     mark: string,
     weight: string
@@ -13,7 +14,7 @@ interface Props {
 export default class GradeIndexRow extends React.Component<Props, {}> {
   render() {
     const {
-      id, name, mark, weight
+      id, name, mark, weight, handleRemove
     } = this.props;
 
     return (
@@ -53,6 +54,7 @@ export default class GradeIndexRow extends React.Component<Props, {}> {
             onChange={(e:any) => this.props.handleChange(e, id)}
           />
         </Form.Group>
+        {id !== 1 && <i role="button" tabIndex={0} onClick={() => handleRemove()} className="fa fa-trash-o fa-2x removeIcon" />}
       </div>
     );
   }

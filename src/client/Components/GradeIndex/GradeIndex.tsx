@@ -1,8 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import '../../Styling/GradeIndex.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import GradeIndexRow from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
@@ -121,6 +121,10 @@ export default class GradeIndex extends React.Component<{}, State> {
       });
     }
 
+    handleRemove(id:number) {
+      this.setState(prev => ({ inputs: prev.inputs.filter(row => row.id !== id) }));
+    }
+
     gradeConversion(grade: string) {
       this.setState({ examGrade: grade, examPercent: String(numberToPercent(Number(grade))) });
     }
@@ -154,6 +158,7 @@ export default class GradeIndex extends React.Component<{}, State> {
     }
 
     resetForm() {
+      this.id = 0;
       this.setState({
         inputs: [{
           id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40'
@@ -208,7 +213,7 @@ export default class GradeIndex extends React.Component<{}, State> {
             </div>
             <Form ref={this.formRef as React.RefObject<any>} onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
               <div className="gradeIndexFormRows">
-                {this.state.inputs.map((elm:rowState) => (<GradeIndexRow key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} />))}
+                {this.state.inputs.map((elm:rowState) => (<GradeIndexRow key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} handleRemove={() => this.handleRemove(elm.id)} />))}
               </div>
               <div className="actionButtons">
                 <p className="actionClick" onClick={() => this.newRow()}>Add Another Grade</p>
