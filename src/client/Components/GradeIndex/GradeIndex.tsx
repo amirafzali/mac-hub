@@ -88,6 +88,7 @@ export default class GradeIndex extends React.Component<{}, State> {
       this.setState({
         inputs: this.state.inputs.map((elm: rowState) => {
           if (elm.id === id) {
+            // eslint-disable-next-line no-param-reassign
             elm[e.target.id] = e.target.value;
           }
           return elm;
