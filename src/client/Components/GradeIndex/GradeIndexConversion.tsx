@@ -17,12 +17,12 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
       examPercent: percentage, examGrade: grade, examWeight: weight, handleChange
     } = this.props;
     return (
-      <div className="conversionField">
-        <div className="conversionFieldHeader">
+      <div className="conversion-field">
+        <div className="conversion-field-header">
           <h3>Desired Mark</h3>
           <h3>Exam Weight</h3>
         </div>
-        <div className="conversionFieldForm">
+        <div className="conversion-field-form">
           <InputGroup className="mb-3">
             <FormControl
               placeholder="90"

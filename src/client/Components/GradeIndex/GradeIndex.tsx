@@ -2,7 +2,6 @@ import React from 'react';
 import '../../Styling/GradeIndex.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import GradeIndexRow from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
@@ -41,7 +40,7 @@ function formatGrade(grade: string) {
 const ResultsBox = (props:OutputProps) => {
   const { currentAverage, requiredAverage, courseMark } = props;
   return (
-    <div className="gradeIndexResults">
+    <div className="grade-index-results">
       <div>
         <h3>Current Average: <h3 style={{ float: 'right' }}>{currentAverage}% ({formatGrade(currentAverage)})</h3></h3>
         <h3>Required Exam: <h3 style={{ float: 'right' }}>{requiredAverage}% ({formatGrade(requiredAverage)})</h3></h3>
@@ -52,7 +51,7 @@ const ResultsBox = (props:OutputProps) => {
 };
 
 const WarningBox = () => (
-  <div className="gradeIndexWarning">
+  <div className="grade-index-warning">
     <div>
       <h3>Course weights exceed 100, please verify.</h3>
     </div>
@@ -202,28 +201,28 @@ export default class GradeIndex extends React.Component<{}, State> {
         examGrade, examPercent, examWeight, showResults, requiredAverage, currentAverage
       } = this.state;
       return (
-        <div className="gradeIndexWrapper">
+        <div className="grade-index-wrapper">
           <Navigation />
           <h1>MaxAverage</h1>
-          <div className="gradeIndexContainer">
-            <div className="gradeIndexHeader">
+          <div className="grade-index-container">
+            <div className="grade-index-header">
               <h3>Name</h3>
               <h3>Mark</h3>
               <h3>Weight</h3>
             </div>
             <Form ref={this.formRef as React.RefObject<any>} onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
-              <div className="gradeIndexFormRows">
+              <div className="grade-index-form-rows">
                 {this.state.inputs.map((elm:rowState) => (<GradeIndexRow key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} handleRemove={() => this.handleRemove(elm.id)} />))}
               </div>
-              <div className="actionButtons">
-                <p className="actionClick" onClick={() => this.newRow()}>Add Another Grade</p>
-                <p className="actionClick" onClick={() => this.resetForm()}>Reset Form</p>
+              <div className="action-buttons">
+                <p className="action-click" onClick={() => this.newRow()}>Add Another Grade</p>
+                <p className="action-click" onClick={() => this.resetForm()}>Reset Form</p>
               </div>
               <hr />
               <div>
                 <GradeIndexConversion examGrade={examGrade} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
               </div>
-              <div className="submitRow">
+              <div className="submit-row">
                 <Button type="submit" variant="outline-success">Calculate</Button>
               </div>
             </Form>

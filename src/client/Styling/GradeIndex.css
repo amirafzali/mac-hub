@@ -2,19 +2,20 @@
 body {
     background-color: #fafafa !important;
 }
-.gradeIndexWrapper {
+.grade-index-wrapper {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.gradeIndexWrapper h1 {
+.grade-index-wrapper h1 {
     margin-top: 2%;
     align-self: center;
     flex: 1;
     font-family: "Georgia", serif
 }
+
 .calculatorOptions {
     display: flex;
     flex-direction: row;
@@ -40,22 +41,6 @@ body {
     width: 40%;
     border-radius: .5rem;
 }
-.gradeIndexContainer, .gradeIndexResults, .gradeIndexWarning {
-    width: 35%;
-    min-width: 500px;
-    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    border-radius: .5rem!important;
-}
-.gradeIndexContainer {
-    margin-top: 2%;
-    padding: 1.5%;
-    background-color: white;
-}
-
 .className {
     color: darkcyan;
     border: none;
@@ -65,37 +50,63 @@ body {
     margin-left: 1%;
 }
 
-.gradeIndexHeader {
+.grade-index-container, .grade-index-results, .grade-index-warning {
+    width: 35%;
+    min-width: 500px;
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border-radius: .5rem!important;
+}
+.grade-index-container {
+    margin-top: 2%;
+    padding: 1.5%;
+    background-color: white;
+}
+
+
+.grade-index-header {
     display: flex;
     flex-direction: Row;
     justify-content: space-around;
     margin-top: 1%;
 }
 
-.gradeIndexRow {
+.grade-index-row {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    margin-top: 1%;
 }
 
-.gradeIndexRow .input-group, .gradeIndexRow .form-group {
+.grade-index-row .input-row { 
     flex: 1;
-    margin: 10px;
+}
+.grade-index-row .input-row-weight { 
+    flex: 1;
+    flex-direction: row;
+    display: flex;
 }
 
-.gradeIndexRow input::placeholder {
+.grade-index-row .input-group, .grade-index-row .form-group {
+    flex: 1;
+    padding: 1px 10px;
+}
+
+.grade-index-row input::placeholder {
     font-weight: 10 0;
 }       
 
-.gradeIndexRow .removeIcon {
+.grade-index-row .remove-icon {
     font-size: 1.8rem; 
+    padding-bottom: 0.8rem;
     align-self: center;
     color: red;
     cursor: pointer;
 }
 
-.actionButtons {
+.action-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -103,7 +114,7 @@ body {
     color: #0000EE;
 }
 
-.actionClick:hover {
+.action-click:hover {
     cursor: pointer;
 }
 
@@ -112,70 +123,70 @@ hr {
     height: 1px;
   }
 
-.conversionFieldHeader {
+.conversion-field-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin: 0 3%;
 }
 
-.conversionFieldForm {
+.conversion-field-form {
     display: flex;
     flex-direction: row;
 }
 
-.conversionFieldForm .input-group, .conversionFieldForm .form-group {
+.conversion-field-form .input-group, .conversion-field-form .form-group {
     flex: 1;
     margin: 10px;
 }
 
-.conversionFieldForm input::placeholder {
+.conversion-field-form input::placeholder {
     font-weight: 100;
 }
 
-.submitRow {
+.submit-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin-top: 2%;
 }
 
-.gradeIndexResults, .gradeIndexWarning {
+.grade-index-results, .grade-index-warning {
     margin: 3% 1%;
     margin-bottom: 3%;
     padding: 2%;
 }
 
-.gradeIndexResults {
+.grade-index-results {
     background-color: #f0f5f4;
     border: 2px solid #1f979d;
 }
 
-.gradeIndexWarning {
+.grade-index-warning {
     background-color: #f8f7ed;
     border: 2px solid #ffc107;
 }
 
 @media screen and (max-width: 600px) {
-    .gradeIndexContainer {
+    .grade-index-container {
         width: 100%;
         min-width: 50px;
         background-color: white;
     }
 
-    .gradeIndexResults {
+    .grade-index-results {
         width: 100%;
         min-width: 50px;
     }
 
-    .gradeIndexHeader h3, .conversionFieldHeader h3 {
+    .grade-index-header h3, .conversion-field-header h3 {
         font-size: 22px;
     }
 
-    .gradeIndexResults h3, .gradeIndexWarning h3 {
+    .grade-index-results h3, .grade-index-warning h3 {
         font-size: 22px;
     }
-    .submitRow {
+    .submit-row {
         margin-bottom: 2%
     }
 }
