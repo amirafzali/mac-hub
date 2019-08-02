@@ -2,6 +2,7 @@ import React from 'react';
 import '../../Styling/GradeIndex.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 import GradeIndexRow from './GradeIndexRow';
 import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
@@ -84,14 +85,15 @@ export default class GradeIndex extends React.Component<{}, State> {
     }
 
     handleGradeChange(e: React.ChangeEvent<HTMLInputElement>, id:number) {
-      this.setState({
-        inputs: this.state.inputs.map((elm: rowState) => {
+      e.persist();
+      this.setState((state) => {
+        state.inputs.map((elm: rowState) => {
           if (elm.id === id) {
             // eslint-disable-next-line no-param-reassign
             elm[e.target.id] = e.target.value;
           }
           return elm;
-        })
+        });
       });
       setImmediate(() => {
         this.recalculateWeight();
@@ -106,9 +108,9 @@ export default class GradeIndex extends React.Component<{}, State> {
 
     handleConversionChange(e: React.ChangeEvent<HTMLInputElement>) {
       switch (e.target.id) {
-        case ("examGrade"): this.gradeConversion(e.target.value); break;
-        case ("examPercent"): this.percentConversion(e.target.value); break;
-        case ("examWeight"): this.setState({ examWeight: e.target.value }); break;
+        case ('examGrade'): this.gradeConversion(e.target.value); break;
+        case ('examPercent'): this.percentConversion(e.target.value); break;
+        case ('examWeight'): this.setState({ examWeight: e.target.value }); break;
         default: break;
       }
       setImmediate(() => {
@@ -149,11 +151,11 @@ export default class GradeIndex extends React.Component<{}, State> {
     }
 
     newRow() {
-      this.setState({
-        inputs: [...this.state.inputs, {
+      this.setState(state => ({
+        inputs: [...state.inputs, {
           id: this.getId(), name: '', mark: '', weight: ''
         }]
-      });
+      }));
     }
 
     resetForm() {
@@ -161,7 +163,9 @@ export default class GradeIndex extends React.Component<{}, State> {
       this.setState({
         inputs: [{
           id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40'
-        }]
+        }],
+        showResults: false,
+        showWarning: false
       });
     }
 
@@ -200,32 +204,45 @@ export default class GradeIndex extends React.Component<{}, State> {
       const {
         examGrade, examPercent, examWeight, showResults, requiredAverage, currentAverage
       } = this.state;
+      const headerStyle: React.CSSProperties = this.state.inputs.length >= 3 ? { position: 'absolute', alignSelf: 'flex-start', padding: '150px' } : {};
       return (
         <div className="grade-index-wrapper">
           <Navigation />
-          <h1>MaxAverage</h1>
+          <h1 style={headerStyle}>MaxAverage</h1>
           <div className="grade-index-container">
-            <div className="grade-index-header">
-              <h3>Name</h3>
-              <h3>Mark</h3>
-              <h3>Weight</h3>
+            <div id="containerHeader">
+              <Nav variant="pills" defaultActiveKey="home">
+                <Nav.Item>
+                  <Nav.Link eventKey="home">Class 1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="link-1">+</Nav.Link>
+                </Nav.Item>
+              </Nav>
             </div>
-            <Form ref={this.formRef as React.RefObject<any>} onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
-              <div className="grade-index-form-rows">
-                {this.state.inputs.map((elm:rowState) => (<GradeIndexRow key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} handleRemove={() => this.handleRemove(elm.id)} />))}
+            <div id="containerBody">
+              <div className="grade-index-titles">
+                <h3>Name</h3>
+                <h3>Mark</h3>
+                <h3>Weight</h3>
               </div>
-              <div className="action-buttons">
-                <p className="action-click" onClick={() => this.newRow()}>Add Another Grade</p>
-                <p className="action-click" onClick={() => this.resetForm()}>Reset Form</p>
-              </div>
-              <hr />
-              <div>
-                <GradeIndexConversion examGrade={examGrade} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
-              </div>
-              <div className="submit-row">
-                <Button type="submit" variant="outline-success">Calculate</Button>
-              </div>
-            </Form>
+              <Form ref={this.formRef as React.RefObject<any>} onSubmit={(e:React.FormEvent) => this.handleSubmit(e)}>
+                <div className="grade-index-form-rows">
+                  {this.state.inputs.map((elm:rowState) => (<GradeIndexRow key={elm.id} id={elm.id} name={elm.name} mark={elm.mark} weight={elm.weight} handleChange={this.handleGradeChange} handleRemove={() => this.handleRemove(elm.id)} />))}
+                </div>
+                <div className="action-buttons">
+                  <Button variant="outline-primary" onClick={() => this.newRow()}>Add Grade</Button>
+                  <Button variant="outline-warning" onClick={() => this.resetForm()}>Reset Form</Button>
+                </div>
+                <hr />
+                <div>
+                  <GradeIndexConversion examGrade={examGrade} examPercent={examPercent} examWeight={examWeight} handleChange={this.handleConversionChange} />
+                </div>
+                <div className="submit-row">
+                  <Button type="submit" variant="outline-success">Calculate</Button>
+                </div>
+              </Form>
+            </div>
           </div>
           {showResults && <ResultsBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
           {this.state.showWarning && <WarningBox />}
