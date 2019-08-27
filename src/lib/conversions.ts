@@ -1,6 +1,9 @@
 export const letterGrades = {
   'A+ (12, 4.0)': 12, 'A (11, 3.9)': 11, 'A- (10, 3.7)': 10, 'B+ (9, 3.3)': 9, 'B (8, 3.0)': 8, 'B- (7, 2.7)': 7, 'C+ (6, 2.3)': 6, 'C (5, 2.0)': 5, 'C- (4, 1.7)': 4, 'D+ (3, 1.3)': 3, 'D (2, 1.0)': 2, 'D- (1, 0.7)': 1, 'F (0)': 0
 };
+export const twelve = ['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'];
+export const four = ['4.0', '3.9', '3.7', '3.3', '3.0', '2.7', '2.3', '2.0', '1.7', '1.3', '1.0', '0.7', '0'];
+export const letters = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'F'];
 
 export function numberToPercent(grade: number): number {
   switch (grade) {
@@ -111,6 +114,38 @@ export function percentToLetter(grade: number): string {
   if (grade < 90) {
     return 'A';
   }
-
   return 'A+';
+}
+
+export function letterToPercent(letter: string): number {
+  switch (letter) {
+    case 'F':
+      return 49;
+    case 'D-':
+      return 50;
+    case 'D':
+      return 53;
+    case 'D+':
+      return 57;
+    case 'C-':
+      return 60;
+    case 'C':
+      return 63;
+    case 'C+':
+      return 67;
+    case 'B-':
+      return 70;
+    case 'B':
+      return 73;
+    case 'B+':
+      return 77;
+    case 'A-':
+      return 80;
+    case 'A':
+      return 85;
+    case 'A+':
+      return 90;
+    default:
+      return 0;
+  }
 }

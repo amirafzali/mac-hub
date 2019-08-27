@@ -8,6 +8,7 @@ import GradeIndexConversion from './GradeIndexConversion';
 import Navigation from '../Other/Navigation';
 import { numberToPercent, percentToNumber, percentToLetter } from '../../../lib/conversions';
 import { getResults } from '../../../lib/calculations';
+import ConversionBubble from '../GradeConversion/ConversionBubble';
 
 
 interface rowState {
@@ -205,7 +206,7 @@ export default class GradeIndex extends React.Component<{}, State> {
 
     render() {
       const {
-        examGrade, examPercent, examWeight, showResults, requiredAverage, currentAverage
+        examGrade, examPercent, examWeight, showResults, showWarning, requiredAverage, currentAverage
       } = this.state;
       const headerStyle: React.CSSProperties = this.state.inputs.length >= 3 ? { position: 'absolute', alignSelf: 'flex-start', padding: '150px' } : {};
       return (
@@ -238,7 +239,8 @@ export default class GradeIndex extends React.Component<{}, State> {
             </div>
           </div>
           {showResults && <ResultsBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
-          {this.state.showWarning && <WarningBox />}
+          {showWarning && <WarningBox />}
+          {!showResults && !showWarning && <ConversionBubble />}
         </div>
       );
     }

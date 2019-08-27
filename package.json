@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "webpack --mode production && babel src --out-dir out --extensions \".ts,.tsx\" --source-maps inline",
-    "start": "npm run build && node out/server/index.ts",
+    "start": "npm run build && node out/server/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon --exec babel-node --extensions \".ts,.tsx\" src/server/index.ts",
     "dev": "concurrently \"npm run server\" \"npm run client\""
