@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../Styling/GradeIndex.css';
+import '../../Styling/grade-index.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -165,7 +165,10 @@ export default class GradeIndex extends React.Component<{}, State> {
           id: this.getId(), name: 'Quiz 1', mark: '100', weight: '40'
         }],
         showResults: false,
-        showWarning: false
+        showWarning: false,
+        examPercent: '90',
+        examGrade: '',
+        examWeight: '60',
       });
     }
 
@@ -208,19 +211,9 @@ export default class GradeIndex extends React.Component<{}, State> {
       return (
         <div className="grade-index-wrapper">
           <Navigation />
-          <h1 style={headerStyle}>MaxAverage</h1>
+          {this.state.inputs.length < 3 && <h1 style={headerStyle}>MaxAverage</h1>}
           <div className="grade-index-container">
-            <div id="containerHeader">
-              <Nav variant="pills" defaultActiveKey="home">
-                <Nav.Item>
-                  <Nav.Link eventKey="home">Class 1</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="link-1">+</Nav.Link>
-                </Nav.Item>
-              </Nav>
-            </div>
-            <div id="containerBody">
+            <div id="container-body">
               <div className="grade-index-titles">
                 <h3>Name</h3>
                 <h3>Mark</h3>
