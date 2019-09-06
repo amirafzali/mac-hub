@@ -212,7 +212,7 @@ export default class GradeIndex extends React.Component<{}, State> {
       return (
         <div className="grade-index-wrapper">
           <Navigation />
-          {this.state.inputs.length < 3 && <h1 style={headerStyle}>MaxAverage</h1>}
+          <h1>MaxAverage</h1>
           <div className="grade-index-container">
             <div id="container-body">
               <div className="grade-index-titles">
@@ -240,7 +240,7 @@ export default class GradeIndex extends React.Component<{}, State> {
           </div>
           {showResults && <ResultsBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
           {showWarning && <WarningBox />}
-          {!showResults && !showWarning && <ConversionBubble />}
+          {!showResults && !showWarning && this.state.inputs.length <= 1 && <ConversionBubble />}
         </div>
       );
     }

@@ -3,6 +3,6 @@
     background-image: linear-gradient(to bottom,#89216B 0,#89216B 100%) !important; /* override background image gradient w/ flat color */
 }
 .navbar {
-    padding: .5rem 10rem !important;
+    padding: 0 12rem !important;
     height: 10%;
 }
