@@ -1,7 +1,7 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import React from 'react';
-import '../../Styling/nav.css';
+import '../../Styling/Nav.css';
 
 const Navigation = () => (
   <Navbar bg="primary" variant="dark">
