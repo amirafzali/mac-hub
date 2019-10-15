@@ -21,6 +21,7 @@ body {
 }
 .grade-index-wrapper h3 {
     font-size: 26px;
+    font-weight: 550;
 }
 
 .grade-index-container, .grade-index-results, .grade-index-warning {
