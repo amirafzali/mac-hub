@@ -162,6 +162,12 @@ hr {
     text-align: center;
 }
 
+#show-conversions {
+    width: 10%;
+    align-self: center;
+    margin-top: 5%;
+}
+
 @media screen and (max-width: 600px) {
     .grade-index-container {
         width: 100%;

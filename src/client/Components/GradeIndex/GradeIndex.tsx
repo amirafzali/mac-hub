@@ -26,7 +26,9 @@ interface State {
     showResults: boolean,
     showWarning: boolean,
     requiredAverage: string,
-    currentAverage: string
+    currentAverage: string,
+    firstTime: boolean,
+    showConversions: boolean
 }
 interface OutputProps {
   requiredAverage: string,
@@ -79,7 +81,9 @@ export default class GradeIndex extends React.Component<{}, State> {
         showResults: false,
         showWarning: false,
         requiredAverage: '',
-        currentAverage: ''
+        currentAverage: '',
+        firstTime: true,
+        showConversions: true
       };
       this.handleGradeChange = this.handleGradeChange.bind(this);
       this.handleConversionChange = this.handleConversionChange.bind(this);
@@ -99,7 +103,6 @@ export default class GradeIndex extends React.Component<{}, State> {
       setImmediate(() => {
         this.recalculateWeight();
         if (this.formRef.current!.checkValidity()) {
-          console.log('x');
           this.displayResults();
         } else {
           this.setState({ showResults: false });
@@ -143,7 +146,9 @@ export default class GradeIndex extends React.Component<{}, State> {
       if (100 - totalWeight >= 0) {
         this.setState({ examWeight: String(100 - totalWeight), showWarning: false });
       } else {
-        this.setState({ examWeight: String(100 - totalWeight), showWarning: true, showResults: false });
+        this.setState({
+          examWeight: String(100 - totalWeight), showWarning: true, showResults: false
+        });
       }
     }
 
@@ -170,6 +175,8 @@ export default class GradeIndex extends React.Component<{}, State> {
         examPercent: '90',
         examGrade: '',
         examWeight: '60',
+        showConversions: false,
+        firstTime: false
       });
     }
 
@@ -185,7 +192,7 @@ export default class GradeIndex extends React.Component<{}, State> {
 
       const results = getResults(grades, weights, Number(examPercent), Number(examWeight));
       this.setState({
-        showResults: true, showWarning: false, requiredAverage: String(results.required), currentAverage: String(results.average)
+        showResults: true, showWarning: false, requiredAverage: String(results.required), currentAverage: String(results.average), firstTime: false, showConversions: false
       });
 
       this.attemptLog();
@@ -206,7 +213,7 @@ export default class GradeIndex extends React.Component<{}, State> {
 
     render() {
       const {
-        examGrade, examPercent, examWeight, showResults, showWarning, requiredAverage, currentAverage
+        examGrade, examPercent, examWeight, showResults, showWarning, requiredAverage, currentAverage, firstTime, showConversions
       } = this.state;
       const headerStyle: React.CSSProperties = this.state.inputs.length >= 3 ? { position: 'absolute', alignSelf: 'flex-start', padding: '150px' } : {};
       return (
@@ -240,7 +247,8 @@ export default class GradeIndex extends React.Component<{}, State> {
           </div>
           {showResults && <ResultsBox requiredAverage={requiredAverage} currentAverage={currentAverage} courseMark={examPercent} />}
           {showWarning && <WarningBox />}
-          {!showResults && !showWarning && this.state.inputs.length <= 1 && <ConversionBubble />}
+          {!showResults && !showWarning && showConversions && <ConversionBubble />}
+          {!showResults && !showWarning && !firstTime && !showConversions && <Button id="show-conversions" variant="info" onClick={() => this.setState({ showConversions: true })}>Show Conversions</Button>}
         </div>
       );
     }
