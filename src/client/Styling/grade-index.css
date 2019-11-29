@@ -179,6 +179,12 @@ hr {
     .grade-index-results {
         width: 100%;
         min-width: 50px;
+        max-width: 100vw;
+        margin-top: 5%;
+    }
+    .grade-index-warning {
+        min-width: 0;
+        width: 100vw;
     }
 
     .grade-index-titles h3, .conversion-field-header h3 {
@@ -187,6 +193,9 @@ hr {
 
     .grade-index-results h3, .grade-index-warning h3 {
         font-size: 22px;
+    }
+    .grade-index-wrapper h1 {
+        margin-top: 10%;
     }
     .submit-row {
         margin-bottom: 2%
@@ -198,5 +207,11 @@ hr {
     .grade-index-row .input-group, .grade-index-row .form-group {
         flex: 1;
         padding: 1px 9px;
+    }
+
+    #show-conversions {
+        width: 50%;
+        align-self: center;
+        margin-top: 10%;
     }
 }

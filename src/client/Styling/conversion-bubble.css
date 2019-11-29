@@ -29,6 +29,8 @@
 @media screen and (max-width: 600px) {
     .conversion-bubble {
         width: 100%;
+        display: flex;
+        align-self: center;
         min-width: 50px;
         background-color: white;
     }

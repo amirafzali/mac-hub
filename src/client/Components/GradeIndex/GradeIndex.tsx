@@ -40,6 +40,7 @@ interface OutputProps {
 function formatGrade(grade: string) {
   return `${percentToNumber(Number(grade))}, ${percentToLetter(Number(grade))}`;
 }
+const isMobile = () => window.screen.availWidth < 900;
 
 const ResultsBox = (props:OutputProps) => {
   const { currentAverage, requiredAverage, courseMark } = props;
@@ -82,8 +83,8 @@ export default class GradeIndex extends React.Component<{}, State> {
         showWarning: false,
         requiredAverage: '',
         currentAverage: '',
-        firstTime: true,
-        showConversions: true
+        firstTime: true && !isMobile,
+        showConversions: true && !isMobile
       };
       this.handleGradeChange = this.handleGradeChange.bind(this);
       this.handleConversionChange = this.handleConversionChange.bind(this);
