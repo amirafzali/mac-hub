@@ -13,4 +13,9 @@ router.get('/log', (req, res) => {
   res.sendStatus(200);
 });
 
+router.get('/lines', (req, res) => {
+  const buffer = fs.readFileSync(`${path.resolve('logs')}/access.log`);
+  res.send({ length: buffer.toString().split('\n').length - 1 });
+});
+
 module.exports = router;

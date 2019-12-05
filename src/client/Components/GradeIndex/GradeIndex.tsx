@@ -201,7 +201,7 @@ export default class GradeIndex extends React.Component<{}, State> {
 
     attemptLog() {
       if (this.first) {
-        fetch('/api/log', { method: 'get' })
+        fetch('http://hypotest.net/api/log', { method: 'get' })
           .then(() => { this.first = false; return true; })
           .catch(() => { this.first = false; });
       }
