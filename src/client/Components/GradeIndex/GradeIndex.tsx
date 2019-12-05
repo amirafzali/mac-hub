@@ -129,6 +129,7 @@ export default class GradeIndex extends React.Component<{}, State> {
 
     handleRemove(id:number) {
       this.setState(prev => ({ inputs: prev.inputs.filter(row => row.id !== id) }));
+      setImmediate(() => this.recalculateWeight());
     }
 
     gradeConversion(grade: string) {
