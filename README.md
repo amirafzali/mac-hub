@@ -6,4 +6,4 @@ Over 3000 unique users so far.
 
 # Preview
 
-![Website homepage](https://imgur.com/nY7dSqC)
+![Website homepage](https://i.imgur.com/nY7dSqC.png)
