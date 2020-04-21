@@ -54,7 +54,7 @@ export default class GradeIndexRow extends React.Component<Props, {}> {
               placeholder="40"
               min="0"
               max="100"
-              step="0.5"
+              step="0.01"
               value={weight}
               onChange={(e:any) => this.props.handleChange(e, id)}
             />
