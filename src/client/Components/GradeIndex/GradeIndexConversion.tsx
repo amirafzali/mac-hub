@@ -45,7 +45,7 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="examWeight">
-            <Form.Control type="number" onChange={(e: any) => handleChange(e)} placeholder="40" value={String(weight)} min={0} max={100} step={0.5} required />
+            <Form.Control type="number" onChange={(e: any) => handleChange(e)} placeholder="40" value={String(weight)} min={0} max={100} step={0.01} required />
           </Form.Group>
         </div>
       </div>
