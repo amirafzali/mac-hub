@@ -1,4 +1,3 @@
-
 const requiredAverage = (desiredGrade:number, desiredWeight:number, totalWeight:number, totalMarks:number) => {
   const mark: number = ((desiredGrade * totalWeight) - totalMarks) / desiredWeight;
   return mark;
