@@ -29,19 +29,19 @@ export default class ConversionBubble extends React.Component<{}, State> {
         </div>
         <div className="conversion-field-form conversion-bubble-form">
           <Form.Group controlId="twelve">
-            <Form.Control as="select" value={twelvePoint} onChange={e => this.handleChange(e)}>
+            <Form.Control as="select" value={twelvePoint} onChange={(e) => this.handleChange(e)}>
               {twelve.map((twelveGrade, index) => (<option key={twelveGrade} value={index}>{twelveGrade}</option>))}
             </Form.Control>
           </Form.Group>
           <span className="equals-sign">=</span>
           <Form.Group controlId="four">
-            <Form.Control as="select" value={fourPoint} onChange={e => this.handleChange(e)}>
+            <Form.Control as="select" value={fourPoint} onChange={(e) => this.handleChange(e)}>
               {four.map((fourGrade, index) => (<option key={fourGrade} value={index}>{fourGrade}</option>))}
             </Form.Control>
           </Form.Group>
           <span className="equals-sign">=</span>
           <Form.Group controlId="letter">
-            <Form.Control as="select" value={letter} onChange={e => this.handleChange(e)}>
+            <Form.Control as="select" value={letter} onChange={(e) => this.handleChange(e)}>
               {letters.map((letterGrade, index) => (<option key={letterGrade} value={index}>{letterGrade}</option>))}
             </Form.Control>
           </Form.Group>

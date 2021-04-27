@@ -40,8 +40,8 @@ export default class GradeIndexConversion extends React.Component<Props, {}> {
             </InputGroup.Append>
           </InputGroup>
           <Form.Group controlId="examGrade">
-            <Form.Control as="select" value={grade} onChange={e => handleChange(e)}>
-              {Object.keys(letterGrades).map(letterGrade => (<option key={letterGrades[letterGrade]} value={letterGrades[letterGrade]}>{letterGrade}</option>))}
+            <Form.Control as="select" value={grade} onChange={(e) => handleChange(e)}>
+              {Object.keys(letterGrades).map((letterGrade) => (<option key={letterGrades[letterGrade]} value={letterGrades[letterGrade]}>{letterGrade}</option>))}
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="examWeight">

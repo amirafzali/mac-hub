@@ -9,7 +9,7 @@ router.get('/log', (req, res) => {
   write.on('open', () => {
     write.write(`Access: ${Date()}, IP: ${req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for']} || ${req.connection.remoteAddress}\n`);
   })
-    .on('error', err => console.log(err));
+    .on('error', (err) => console.log(err));
   res.sendStatus(200);
 });
 
