@@ -6,3 +6,4 @@ yarn.lock
 out
 package-lock.json
 *.pdf
+server

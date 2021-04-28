@@ -3,7 +3,7 @@
     "promise"
   ],
   "extends": [
-    "airbnb",
+    "airbnb-typescript",
     "plugin:promise/recommended"
   ],
   "env": {
